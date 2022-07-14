@@ -1,15 +1,15 @@
 import { Movie } from "src/movies/entities/movie.entity";
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+@Entity('actor')
 export class Actor {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({length: 50})
     name: string;
 
-    @ManyToMany(type => Movie, movie => movie.cast, { eager: false })
-    movies: Movie[]
+    @ManyToMany(type => Movie, movie => movie.cast,{onUpdate:'CASCADE'})
+    movies: Movie[];
 
 }

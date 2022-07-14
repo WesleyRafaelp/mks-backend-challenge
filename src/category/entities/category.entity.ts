@@ -8,9 +8,9 @@ export class Category {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({length: 30})
     name: string;
 
-    @ManyToMany(type => Movie, movie => movie.categories, { eager: false })
+    @ManyToMany(type => Movie, movie => movie.categories, {onUpdate:'CASCADE'})
     movies: Movie[];
 }

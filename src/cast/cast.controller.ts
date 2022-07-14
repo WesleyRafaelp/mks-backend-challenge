@@ -1,9 +1,11 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { CastService } from './cast.service';
 import { CreateCastDto } from './dto/create-cast.dto';
 import { UpdateCastDto } from './dto/update-cast.dto';
 
-@Controller('cast')
+@ApiTags('Actors')
+@Controller('actors')
 export class CastController {
   constructor(private readonly castService: CastService) {}
 
@@ -22,7 +24,12 @@ export class CastController {
     return this.castService.findOne(+id);
   }
 
-  @Patch(':id')
+  @Get(':id/movies')
+  findActorMovies(@Param('id') id: string) {
+    return this.castService.findActorMovies(+id);
+  }
+
+  @Put(':id')
   update(@Param('id') id: string, @Body() updateCastDto: UpdateCastDto) {
     return this.castService.update(+id, updateCastDto);
   }
