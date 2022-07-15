@@ -1,3 +1,14 @@
+# API REST de catálogo de filmes
+
+É uma API REST onde feita com NestJS e usando como banco de dados MySQL. Dados de filmes, com dados fazendo relação um com outro.
+
+# Experiência
+
+Estou estudando programação a 6 meses. Com essas tecnologias da API estou estudando a 2 meses. Porém tenho muita vontade de aprender e tenho aprendido bem rápido. 
+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
