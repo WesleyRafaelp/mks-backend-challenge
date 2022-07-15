@@ -1,5 +1,5 @@
-import { Actor } from "src/cast/entities/cast.entity";
-import { Category } from "src/category/entities/category.entity";
+import { Actor } from "../../cast/entities/cast.entity";
+import { Category } from "../../category/entities/category.entity";
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('movies')
@@ -21,10 +21,8 @@ export class Movie {
     @JoinTable()
     cast: Actor[];
 
-    @ManyToMany(() => Category, (category) => category.movies, { eager:true, 
-})
+    @ManyToMany(() => Category, (category) => category.movies, { eager:true, })
     @JoinTable()
     categories: Category[];
 
-    
 }

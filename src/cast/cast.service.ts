@@ -21,7 +21,7 @@ export class CastService {
   }
 
   findAll() {
-    return this.castRepository.query('SELECT * FROM actor;');
+    return this.castRepository.find();
   }
 
   async findOne(id: number) {
@@ -45,7 +45,7 @@ export class CastService {
       },
       relations: {
         movies: true
-      }
+      } 
   })
 
     if(!actor){

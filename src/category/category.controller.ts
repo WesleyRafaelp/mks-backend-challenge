@@ -24,7 +24,7 @@ export class CategoryController {
     return this.categoryService.findOne(+id);
   }
 
-  @Get(':id')
+  @Get(':id/movies')
   findCategoryMovies(@Param('id') id: string) {
     return this.categoryService.findCategoryMovies(+id);
   }

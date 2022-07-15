@@ -1,4 +1,4 @@
-import { Movie } from "src/movies/entities/movie.entity";
+import { Movie } from "../../movies/entities/movie.entity";
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 
@@ -13,4 +13,6 @@ export class Category {
 
     @ManyToMany(type => Movie, movie => movie.categories, {onUpdate:'CASCADE'})
     movies: Movie[];
+
 }
+

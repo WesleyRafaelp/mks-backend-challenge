@@ -5,7 +5,7 @@ import { DatabaseModule } from 'src/database/database.module';
 import { castProviders } from './cast.providers';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, ],
   controllers: [CastController],
   providers: [CastService, ...castProviders,]
 })
