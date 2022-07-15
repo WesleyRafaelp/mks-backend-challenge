@@ -8,7 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({}));
   
   const config = new DocumentBuilder()
-    .setTitle('Catálogo de filmes')
+    .setTitle('WrVideos')
     .setDescription('Catálogo de filmes')
     .setVersion('1.0')
     .addTag('Catálogo')
