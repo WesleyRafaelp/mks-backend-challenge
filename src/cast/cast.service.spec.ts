@@ -21,17 +21,14 @@ describe('CastService', () => {
       providers: [
         CastService,
         {
-          provide: 'ACTOR_REPOSITORY',
-          useValue: getRepositoryToken(Actor),
-          useClass: Repository,
-          useFactory: (dataSource: DataSource) => repositoryMock,
-          inject: ['DATA_SOURCE'],
+          provide: getRepositoryToken(Actor),
+          useValue: repositoryMock,
         }
       ],
     }).compile();
 
     castService = module.get<CastService>(CastService);
-    repositoryMock = module.get('ACTOR_REPOSITORY');
+    repositoryMock = module.get(Actor, repositoryMock);
     console.log(repositoryMock);
   });
 
