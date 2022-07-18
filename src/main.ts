@@ -9,6 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({}));
   
   const config = new DocumentBuilder()
+    .addServer('https://mks-backend-challenge.herokuapp.com/v1')
     .setTitle('WrVideos')
     .setDescription('Catálogo de filmes')
     .setVersion('1.0')
@@ -17,7 +18,7 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
   
-//  dotenv.config();
+  // dotenv.config();
 
   await app.listen(process.env.PORT || 3000);
 }

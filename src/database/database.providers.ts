@@ -7,12 +7,11 @@ export const databaseProviders = [
     useFactory: async () => {
       const dataSource = new DataSource({
         type: 'mysql',
-        url: 'mysql2://b1e9c0add1e6cd:43877499@us-cdbr-east-06.cleardb.net/heroku_2008010f68e1244?reconnect=true',
-        host: 'us-cdbr-east-06.cleardb.net', 
+        host: 'localhost', 
         port: 3306,
-        username: 'b1e9c0add1e6cd',
-        password: '43877499',
-        database: 'heroku_2008010f68e1244',
+        username: 'root',
+        password: 'example',
+        database: 'WrVideos',
         entities: [
             __dirname + '/../**/*.entity{.ts,.js}',
         ],
