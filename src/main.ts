@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({}));
   
   const config = new DocumentBuilder()
-    .addServer('https://mks-backend-challenge.herokuapp.com/v1')
+    .addServer('https://mks-backend-challenge.herokuapp.com/')
     .setTitle('WrVideos')
     .setDescription('Catálogo de filmes')
     .setVersion('1.0')

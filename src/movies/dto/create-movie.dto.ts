@@ -11,7 +11,7 @@ export class CreateMovieDto {
 
     @ApiProperty()
     @IsString()
-    @Length( 3, 255)
+    @Length( 3, 500)
     synopsis: string;
 
     @ApiProperty()
