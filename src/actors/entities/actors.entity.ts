@@ -10,6 +10,6 @@ export class Actor {
     name: string;
 
     @ManyToMany(type => Movie, movie => movie.cast,{onUpdate:'CASCADE'})
-    movies: Movie[];
+    movies?: Movie[];
 
 }

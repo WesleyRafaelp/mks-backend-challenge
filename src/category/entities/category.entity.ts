@@ -12,7 +12,7 @@ export class Category {
     name: string;
 
     @ManyToMany(type => Movie, movie => movie.categories, {onUpdate:'CASCADE'})
-    movies: Movie[];
+    movies?: Movie[];
 
 }
 

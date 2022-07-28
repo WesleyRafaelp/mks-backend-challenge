@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CastController } from './cast.controller';
 import { CastService } from './cast.service';
-import { Actor } from './entities/cast.entity';
+import { Actor } from './entities/actors.entity';
 import { Movie } from 'src/movies/entities/movie.entity';
 
 

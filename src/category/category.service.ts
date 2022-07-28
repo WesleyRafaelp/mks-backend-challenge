@@ -1,5 +1,5 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
-import { retry } from 'rxjs';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
@@ -8,7 +8,7 @@ import { Category } from './entities/category.entity';
 @Injectable()
 export class CategoryService {
   constructor(
-    @Inject('CATEGORY_REPOSITORY')
+    @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
   ){}
 
@@ -22,11 +22,14 @@ export class CategoryService {
     if (category){
       throw new HttpException(`Category already registered!`, HttpStatus.CONFLICT);
      }
-    return this.categoryRepository.save(createCategoryDto)
+
+    const newCategory = await this.categoryRepository.create(createCategoryDto)
+
+    return this.categoryRepository.save(newCategory)
   }
 
   findAll() {
-    return this.categoryRepository.query('SELECT * FROM category;');
+    return this.categoryRepository.find();
   }
 
   async findOne(id: number) {

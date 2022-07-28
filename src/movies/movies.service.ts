@@ -1,4 +1,5 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -7,7 +8,7 @@ import { Movie } from './entities/movie.entity';
 @Injectable()
 export class MoviesService {
   constructor(
-    @Inject('MOVIE_REPOSITORY')
+    @InjectRepository(Movie)
     private movieRepository: Repository<Movie>,
   ){}
   
@@ -49,7 +50,6 @@ export class MoviesService {
       }
     });
 
-    console.log(movie, 'movie')
     if(!movie){
       throw new HttpException(`Movie ID ${id} not found`, HttpStatus.NOT_FOUND);
     }
@@ -69,6 +69,6 @@ export class MoviesService {
       throw new HttpException(`Movie ID ${id} not found`, HttpStatus.NOT_FOUND);
     }
 
-    await this.movieRepository.remove(movie);
+    return await this.movieRepository.remove(movie);
   }
 }

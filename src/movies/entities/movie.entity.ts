@@ -1,6 +1,6 @@
-import { Actor } from "../../cast/entities/cast.entity";
+import { Actor } from "../../actors/entities/actors.entity";
 import { Category } from "../../category/entities/category.entity";
-import { Column, Entity, JoinColumn, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity('movies')
 export class Movie {

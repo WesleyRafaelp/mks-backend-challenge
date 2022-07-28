@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, Length } from "class-validator";
-import { Actor } from "src/cast/entities/cast.entity";
+import { Actor } from "src/actors/entities/actors.entity";
 import { Category } from "src/category/entities/category.entity";
 
 export class CreateMovieDto {

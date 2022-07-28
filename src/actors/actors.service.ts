@@ -1,31 +1,37 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateCastDto } from './dto/create-cast.dto';
-import { UpdateCastDto } from './dto/update-cast.dto';
-import { Actor } from './entities/cast.entity';
+import { CreateActorDto } from './dto/create-actor.dto';
+import { UpdateActorDto } from './dto/update-actor.dto';
+import { Actor } from './entities/actors.entity';
 
 @Injectable()
-export class CastService {
+export class ActorsService {
   constructor(
-    @Inject('ACTOR_REPOSITORY')
-    private castRepository: Repository<Actor>,
+    @InjectRepository(Actor)
+    private readonly actorRepository: Repository<Actor>,
   ){}
   
-  async create(createCastDto: CreateCastDto) {
-    const actor = await this.castRepository.findOne({where:{ name: createCastDto.name }});
+  async create(createActorDto: CreateActorDto) {
+    const actor = await this.actorRepository.findOne({where:{ name: createActorDto.name }});
      
     if (actor){
       throw new HttpException(`Actor already registered!`, HttpStatus.CONFLICT);
      }
-     return this.castRepository.save(createCastDto);
+
+    const newActor = await this.actorRepository.create(createActorDto);
+
+
+     return await this.actorRepository
+.save(newActor);
   }
 
   findAll() {
-    return this.castRepository.find();
+    return this.actorRepository.find();
   }
 
   async findOne(id: number) {
-    const actor = await this.castRepository.findOne({
+    const actor = await this.actorRepository.findOne({
       where: {
         id: id
       }
@@ -39,7 +45,7 @@ export class CastService {
   }
 
   async findActorMovies(id: number){
-    const actor = await this.castRepository.findOne({
+    const actor = await this.actorRepository.findOne({
       where:{
         id: id
       },
@@ -55,8 +61,8 @@ export class CastService {
     return actor
   }
 
-  async update(id: number, updateCastDto: UpdateCastDto) {
-    const actor = await this.castRepository.findOne({
+  async update(id: number, updateActorDto: UpdateActorDto) {
+    const actor = await this.actorRepository.findOne({
       where: {
         id: id
       }
@@ -66,11 +72,11 @@ export class CastService {
       throw new HttpException(`Actor ID ${id} not found`, HttpStatus.NOT_FOUND);
     }
 
-    return await this.castRepository.update(actor, updateCastDto);
+    return await this.actorRepository.update(actor, updateActorDto);
   }
 
   async remove(id: number) {
-    const actor = await this.castRepository.findOne({
+    const actor = await this.actorRepository.findOne({
       where: {
         id: id
       }
@@ -80,6 +86,6 @@ export class CastService {
       throw new HttpException(`Actor ID ${id} not found`, HttpStatus.NOT_FOUND);
     }
 
-    return await this.castRepository.delete(actor);
+    return await this.actorRepository.delete(actor);
   }
 }
