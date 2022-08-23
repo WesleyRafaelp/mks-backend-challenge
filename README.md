@@ -1,10 +1,7 @@
 # API REST de catálogo de filmes
 
-É uma API REST de catálogo de filmes feita com NestJS, usando como banco de dados MySQL, Swagger para documentar. Feito o deploy pelo heroku https://mks-backend-challenge.herokuapp.com/api.
-
-# Experiência
-
-Estou estudando programação a 6 meses. Com essas tecnologias da API estou estudando a 2 meses. Porém tenho muita vontade de aprender e tenho aprendido bem rápido. 
+É uma API REST de catálogo de filmes feita com NestJS, usando como banco de dados MySQL, Swagger para documentar. Com todos os testes unitários rodando corretamente. Feito o deploy pelo heroku https://mks-backend-challenge.herokuapp.com/api.
+ 
 
 
 
