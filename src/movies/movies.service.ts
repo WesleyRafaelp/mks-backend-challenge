@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { Movie } from './entities/movie.entity';
@@ -10,6 +10,7 @@ export class MoviesService {
   constructor(
     @InjectRepository(Movie)
     private movieRepository: Repository<Movie>,
+    private dataSource: DataSource,
   ){}
   
   async create(createMovieDto: CreateMovieDto) {
@@ -21,12 +22,17 @@ export class MoviesService {
      
     if (movie){
       throw new HttpException(`Movie already registered!`, HttpStatus.CONFLICT);
-     }
-    return this.movieRepository.save(createMovieDto);
+    }
+
+    const saveMovie = await this.movieRepository.save(createMovieDto);
+
+    await this.dataSource.queryResultCache.remove(['listMovies']);
+
+    return saveMovie
   }
 
   findAll() {
-     return this.movieRepository.find()
+     return this.movieRepository.find({cache: {id: 'listMovies', milliseconds: 100000}});
   }
 
   async findOne(id: number) {

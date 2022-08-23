@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { Category } from './entities/category.entity';
@@ -10,6 +10,7 @@ export class CategoryService {
   constructor(
     @InjectRepository(Category)
     private categoryRepository: Repository<Category>,
+    private dataSource: DataSource,
   ){}
 
   async create(createCategoryDto: CreateCategoryDto) {
@@ -21,15 +22,18 @@ export class CategoryService {
      
     if (category){
       throw new HttpException(`Category already registered!`, HttpStatus.CONFLICT);
-     }
+    }
 
-    const newCategory = await this.categoryRepository.create(createCategoryDto)
+    const newCategory = await this.categoryRepository.create(createCategoryDto);
+    const saveCategory = await this.categoryRepository.save(newCategory);
 
-    return this.categoryRepository.save(newCategory)
+    await this.dataSource.queryResultCache.remove(['listCategories']);
+
+    return saveCategory
   }
 
   findAll() {
-    return this.categoryRepository.find();
+    return this.categoryRepository.find({cache: {id: 'listCategories', milliseconds: 100000}});
   }
 
   async findOne(id: number) {

@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { CreateActorDto } from './dto/create-actor.dto';
 import { UpdateActorDto } from './dto/update-actor.dto';
 import { Actor } from './entities/actors.entity';
@@ -10,6 +10,7 @@ export class ActorsService {
   constructor(
     @InjectRepository(Actor)
     private readonly actorRepository: Repository<Actor>,
+    private dataSource: DataSource,
   ){}
   
   async create(createActorDto: CreateActorDto) {
@@ -21,13 +22,15 @@ export class ActorsService {
 
     const newActor = await this.actorRepository.create(createActorDto);
 
+    const saveActor = await this.actorRepository.save(newActor)
 
-     return await this.actorRepository
-.save(newActor);
+    await this.dataSource.queryResultCache.remove(['listActors'])
+    
+    return saveActor
   }
 
   findAll() {
-    return this.actorRepository.find();
+    return this.actorRepository.find({cache: {id: 'listActors', milliseconds: 100000}});
   }
 
   async findOne(id: number) {

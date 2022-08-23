@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { ActorsService } from './actors.service';
 import { ActorsController } from './actors.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Actor } from './entities/actors.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Actor])],
